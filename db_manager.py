@@ -1,4 +1,5 @@
 import mysql.connector
+from queries import *
 
 
 class DB:
@@ -65,6 +66,8 @@ class DB:
         sql = '''CREATE INDEX ID_rooms ON rooms(id)'''
         self.cur.execute(sql)
 
-    def select_requests(self):
-        pass
+    def select_requests(self, list_fun_queries: list):
+        for query in list_fun_queries:
+            query()
+
 
