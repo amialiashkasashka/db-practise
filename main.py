@@ -1,10 +1,10 @@
 import argparse
 from data_loader import FileLoader
-from typing import Tuple, List, Dict
+from typing import List, Dict
 from serializers import XMLSerializer
 from data_writer import SaverXML, SaverJSON
 from db_manager import DB
-import time
+
 
 
 class Solution:
@@ -50,24 +50,24 @@ def run():
         saver.save(data=xml_serialized_data, path='output', output_format='xml')
 
     db = DB()
-    db.insert_rooms(rooms)
-    db.insert_students(students)
+    db._insert_rooms(rooms)
+    db._insert_students(students)
 
-def import_db():
-    pass
+    __query_list = [db._rooms_and_students_amount_query, db._top5_with_smallest_avg_age_query,
+                  db._top5_with_biggest_age_diff_query, db._rooms_with_diff_sex_students_query]
 
+    for query in __query_list:
+        query()
 
 
 
 
 if __name__ == '__main__':
-    start = time.time()
     solution = Solution()
     args = solution.args_parser()
 
     run()
-    end = time.time()
-    print(end - start)
+
 
 
 
